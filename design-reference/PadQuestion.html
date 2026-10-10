@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>問題(iPad)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0B6E63}a:hover{color:#084F47}
+rt{font-size:12px;color:#4A5672}
+</style>
+</helmet>
+<div style="width: 810px; height: 1080px; box-sizing: border-box; padding: 32px 48px 40px; background: #F5F7FA; color: #1B2540; font-family: 'Zen Kaku Gothic New', sans-serif; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 10px">
+<a href="Main.dc.html" aria-label="ホームへもどる" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; color: #1B2540; text-decoration: none">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<div style="flex-grow: 1; font-size: 19px; font-weight: 700">レベル1・セット3</div>
+<div style="font-size: 17px; font-weight: 500; color: #4A5672">問2 / 5</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
+<div style="height: 8px; border-radius: 4px; background: #0B6E63"></div>
+<div style="height: 8px; border-radius: 4px; background: #0B6E63"></div>
+<div style="height: 8px; border-radius: 4px; background: #D5DBE5"></div>
+<div style="height: 8px; border-radius: 4px; background: #D5DBE5"></div>
+<div style="height: 8px; border-radius: 4px; background: #D5DBE5"></div>
+</div>
+</div>
+
+<div style="background: #FFFFFF; border-radius: 22px; padding: 22px 32px 26px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; line-height: 20px; font-weight: 700; color: #4A5672">文章</div>
+<p style="margin: 0; font-family: 'Klee One', serif; font-size: 24px; line-height: 50px"><span style="background: #FFE27A; border-radius: 5px; padding: 3px 0">「これ、落としたよ。」</span><ruby>由香<rt>ゆか</rt></ruby>が差し出したのは、<ruby>夏美<rt>なつみ</rt></ruby>の定期入れだった。夏美は礼を言おうとしたが、由香はもう背を向けていた。昨日けんかをしてから、二人は話していない。夏美は定期入れをにぎりしめ、由香の<ruby>後<rt>あと</rt></ruby>を追った。</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="height: 30px; padding: 0 14px; border-radius: 15px; background: #E3F1EE; color: #0B6E63; font-size: 15px; font-weight: 700; display: flex; align-items: center">問2</div>
+<div style="font-size: 15px; font-weight: 500; color: #4A5672">だれが、だれに</div>
+</div>
+<h1 style="margin: 0; font-size: 22px; line-height: 36px; font-weight: 700"><span style="background: #FFE27A; border-radius: 5px; padding: 3px 0">「これ、落としたよ。」</span>は、だれが、だれに言いましたか。</h1>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="answer" style="font-size: 15px; line-height: 20px; font-weight: 700; color: #4A5672">あなたの答え</label>
+<textarea id="answer" placeholder="ここに言葉で答えを書こう" style="height: 120px; box-sizing: border-box; padding: 16px 20px; border-radius: 16px; border: 2px solid #B9C2D1; background: #FFFFFF; color: #1B2540; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 21px; line-height: 32px; resize: none"></textarea>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px">
+<a href="PadCheck.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 300px; height: 60px; border-radius: 30px; background: #0B6E63; color: #FFFFFF; font-size: 20px; font-weight: 700; text-decoration: none">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+答えた
+</a>
+<a href="PadCheck.dc.html" style="width: 300px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #0B6E63; text-decoration: underline; text-underline-offset: 4px">わからなければ解説を読む</a>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":810,"height":1080}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

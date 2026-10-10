@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>解説</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0B6E63}a:hover{color:#084F47}
+rt{font-size:9px;color:#4A5672}
+</style>
+</helmet>
+<div style="width: 375px; height: 667px; box-sizing: border-box; padding: 16px 16px 16px; background: #F5F7FA; color: #1B2540; font-family: 'Zen Kaku Gothic New', sans-serif; display: flex; flex-direction: column; gap: 10px">
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px">
+<a href="Question.dc.html" aria-label="問題へもどる" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; color: #1B2540; text-decoration: none">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+</a>
+<div style="flex-grow: 1; font-size: 15px; font-weight: 700">解説</div>
+<div style="font-size: 14px; font-weight: 500; color: #4A5672">問2 / 5</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+<div style="height: 6px; border-radius: 3px; background: #0B6E63"></div>
+<div style="height: 6px; border-radius: 3px; background: #0B6E63"></div>
+<div style="height: 6px; border-radius: 3px; background: #D5DBE5"></div>
+<div style="height: 6px; border-radius: 3px; background: #D5DBE5"></div>
+<div style="height: 6px; border-radius: 3px; background: #D5DBE5"></div>
+</div>
+</div>
+
+<h1 style="margin: 0; font-size: 14px; line-height: 22px; font-weight: 700">「これ、落としたよ。」は、だれが、だれに言いましたか。</h1>
+
+<div style="display: flex; align-items: center; gap: 12px; min-height: 44px; box-sizing: border-box; padding: 8px 14px; border-radius: 12px; background: #FFFFFF">
+<div style="font-size: 12px; font-weight: 700; color: #4A5672; flex-shrink: 0">あなたの答え</div>
+<div style="font-size: 16px; line-height: 24px">由香が夏美に言った</div>
+</div>
+
+<div style="background: #FFFFFF; border: 2px solid #0B6E63; border-radius: 16px; padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; line-height: 18px; font-weight: 700; color: #0B6E63">解説</div>
+<p style="margin: 0; font-family: 'Klee One', serif; font-size: 16px; line-height: 32px">「これ、落としたよ。」<span style="background: #FFE27A; border-radius: 4px; padding: 2px 0"><ruby>由香<rt>ゆか</rt></ruby>が差し出した</span>のは、<span style="background: #FFE27A; border-radius: 4px; padding: 2px 0"><ruby>夏美<rt>なつみ</rt></ruby>の定期入れ</span>だった。</p>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; gap: 8px">
+<div style="width: 20px; height: 20px; margin-top: 1px; border-radius: 10px; background: #0B6E63; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0">1</div>
+<div style="font-size: 14px; line-height: 22px">「由香が差し出した」とある。差し出しながら言ったのは由香。</div>
+</div>
+<div style="display: flex; gap: 8px">
+<div style="width: 20px; height: 20px; margin-top: 1px; border-radius: 10px; background: #0B6E63; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0">2</div>
+<div style="font-size: 14px; line-height: 22px">差し出したのは「夏美の定期入れ」。持ち主の夏美に返している。</div>
+</div>
+</div>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; min-height: 44px; box-sizing: border-box; padding: 8px 14px; border-radius: 12px; background: #E3F1EE">
+<div style="font-size: 12px; font-weight: 700; color: #0B6E63; flex-shrink: 0">答えの例</div>
+<div style="font-size: 16px; line-height: 24px; font-weight: 700">由香が、夏美に</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; line-height: 18px; font-weight: 700; color: #4A5672">自分で丸つけ</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<button type="button" onClick="{{pickO}}" style="height: 56px; border-radius: 12px; border: 2px solid {{oBorder}}; background: {{oBg}}; color: #0B6E63; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 13px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0px; cursor: pointer">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle></svg>
+できた
+</button>
+<button type="button" onClick="{{pickT}}" style="height: 56px; border-radius: 12px; border: 2px solid {{tBorder}}; background: {{tBg}}; color: #7A4F00; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 13px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0px; cursor: pointer">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5l8.5 15h-17z"></path></svg>
+おしい
+</button>
+<button type="button" onClick="{{pickX}}" style="height: 56px; border-radius: 12px; border: 2px solid {{xBorder}}; background: {{xBg}}; color: #A6341A; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 13px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0px; cursor: pointer">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+もう一度
+</button>
+</div>
+</div>
+
+<a href="Result.dc.html" style="display: flex; align-items: center; justify-content: center; height: 50px; border-radius: 25px; background: #0B6E63; color: #FFFFFF; font-size: 17px; font-weight: 700; text-decoration: none">次の問題へ</a>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":375,"height":667}}'>
+class Component extends DCLogic {
+renderVals() {
+var picked = (this.state && this.state.picked) || 'o';
+return {
+pickO: () => this.setState({ picked: 'o' }),
+pickT: () => this.setState({ picked: 't' }),
+pickX: () => this.setState({ picked: 'x' }),
+oBorder: picked === 'o' ? '#0B6E63' : '#D5DBE5',
+oBg: picked === 'o' ? '#E3F1EE' : '#FFFFFF',
+tBorder: picked === 't' ? '#7A4F00' : '#D5DBE5',
+tBg: picked === 't' ? '#FFF3CC' : '#FFFFFF',
+xBorder: picked === 'x' ? '#A6341A' : '#D5DBE5',
+xBg: picked === 'x' ? '#FBE4DD' : '#FFFFFF'
+};
+}
+}
+</script>
+</body>
+</html>

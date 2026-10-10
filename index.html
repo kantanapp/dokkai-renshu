@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>読解練習</title>
+<meta name="description" content="短い文章を読んで、だれが・だれに・何を・何のためにを言葉で答える練習アプリ。">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 読み込み中・読み込み失敗 -->
+<div id="boot" class="boot">
+  <p class="boot__msg" id="bootMsg">問題を読み込んでいます…</p>
+  <button type="button" class="btn btn--main boot__retry" id="bootRetry" hidden>もう一度ためす</button>
+</div>
+
+<!-- ============ ホーム ============ -->
+<main id="viewHome" class="view" hidden>
+  <div class="wrap wrap--home">
+
+    <header class="home__head">
+      <h1 class="home__title">読解練習</h1>
+      <p class="home__sub">短い文章から、少しずつ長く。</p>
+    </header>
+
+    <!-- つづきから -->
+    <section class="resume" id="resume" hidden>
+      <div class="resume__top">
+        <span class="resume__label" id="resumeLabel">つづきから</span>
+        <span class="resume__count" id="resumeCount"></span>
+      </div>
+      <div>
+        <div class="resume__set" id="resumeSet"></div>
+        <div class="resume__theme" id="resumeTheme"></div>
+      </div>
+      <div class="resume__bar" aria-hidden="true"><div class="resume__barFill" id="resumeBar"></div></div>
+      <button type="button" class="btn resume__btn" id="resumeBtn">はじめる</button>
+    </section>
+
+    <!-- 全部終わったとき -->
+    <section class="allDone" id="allDone" hidden>
+      <p class="allDone__msg">今ある問題は、全部おわりました。</p>
+      <p class="allDone__sub">下のレベルから、もう一度えらべます。</p>
+    </section>
+
+    <!-- レベル一覧 -->
+    <section class="levels">
+      <h2 class="levels__head">レベル</h2>
+      <div class="levels__list" id="levelList"></div>
+    </section>
+
+    <!-- 記録を消す -->
+    <section class="reset">
+      <button type="button" class="reset__open" id="resetOpen">記録を消す</button>
+      <div class="reset__panel" id="resetPanel" hidden role="group" aria-label="記録を消す確認">
+        <p class="reset__ask">書いた答えと丸つけを、全部消します。もどせません。</p>
+        <div class="reset__row">
+          <button type="button" class="btn btn--danger" id="resetYes">消す</button>
+          <button type="button" class="btn btn--quiet" id="resetNo">やめる</button>
+        </div>
+      </div>
+      <p class="reset__done" id="resetDone" hidden role="status">記録を消しました。</p>
+    </section>
+
+    <p class="saveWarn" id="saveWarn" hidden role="status">この端末では記録を保存できません。アプリを閉じると、書いた答えは消えます。</p>
+
+  </div>
+</main>
+
+<!-- ============ 問題 ============ -->
+<main id="viewQuestion" class="view" hidden>
+  <div class="wrap">
+
+    <div class="bar">
+      <div class="bar__row">
+        <button type="button" class="iconBtn" id="qBack" aria-label="ホームへもどる">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <div class="bar__title" id="qSetName"></div>
+        <div class="bar__pos" id="qPos"></div>
+      </div>
+      <div class="steps" id="qSteps" aria-hidden="true"></div>
+      <p class="retryNote" id="qRetryNote" hidden>やり直し中</p>
+    </div>
+
+    <div class="cols">
+      <div class="cols__a">
+        <section class="card">
+          <div class="card__label">文章</div>
+          <p class="passage" id="qPassage"></p>
+        </section>
+      </div>
+
+      <div class="cols__b">
+        <section class="ask">
+          <div class="ask__row">
+            <span class="chip" id="qNo"></span>
+            <span class="ask__kind" id="qKind"></span>
+          </div>
+          <h1 class="ask__text" id="qText"></h1>
+        </section>
+
+        <section class="field">
+          <label class="field__label" for="answerBox">あなたの答え</label>
+          <textarea id="answerBox" class="field__box" placeholder="ここに言葉で答えを書こう" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+        </section>
+
+        <div class="acts">
+          <button type="button" class="btn btn--main" id="qDone">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            答えた
+          </button>
+          <p class="hint" id="qHint" hidden role="alert">まず答えを書いてみよう。わからなければ、下の「解説を読む」へ。</p>
+          <button type="button" class="linkBtn" id="qSkip">わからなければ解説を読む</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ============ 解説 ============ -->
+<main id="viewCheck" class="view" hidden>
+  <div class="wrap">
+
+    <div class="bar">
+      <div class="bar__row">
+        <button type="button" class="iconBtn" id="cBack" aria-label="問題へもどる">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <div class="bar__title">解説</div>
+        <div class="bar__pos" id="cPos"></div>
+      </div>
+      <div class="steps" id="cSteps" aria-hidden="true"></div>
+    </div>
+
+    <h1 class="ask__text ask__text--check" id="cQuestion"></h1>
+
+    <section class="mine">
+      <div class="mine__label">あなたの答え</div>
+      <div class="mine__text" id="cMine"></div>
+    </section>
+
+    <section class="kaisetsu">
+      <div class="kaisetsu__label">解説</div>
+      <p class="passage" id="cPassage"></p>
+      <p class="openNote" id="cOpenNote" hidden>この問題は、文章に答えがそのまま書かれていません。考え方が合っていれば正解です。</p>
+      <ol class="stepsList" id="cSteps2"></ol>
+    </section>
+
+    <section class="sample">
+      <div class="sample__label">答えの例</div>
+      <div class="sample__text" id="cSample"></div>
+    </section>
+
+    <section class="marking">
+      <div class="marking__label" id="markLabel">自分で丸つけ</div>
+      <div class="marking__row" role="radiogroup" aria-labelledby="markLabel">
+        <button type="button" class="mk mk--o" data-mark="o" role="radio" aria-checked="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/></svg>
+          <span>できた</span>
+        </button>
+        <button type="button" class="mk mk--t" data-mark="t" role="radio" aria-checked="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5l8.5 15h-17z"/></svg>
+          <span>おしい</span>
+        </button>
+        <button type="button" class="mk mk--x" data-mark="x" role="radio" aria-checked="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          <span>もう一度</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="acts acts--end">
+      <button type="button" class="btn btn--main" id="cNext">次の問題へ</button>
+      <p class="hint" id="cHint" hidden role="alert">丸つけをえらぶと進めます。</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- ============ セット完了 ============ -->
+<main id="viewResult" class="view" hidden>
+  <div class="wrap wrap--result">
+
+    <header class="res__head">
+      <div class="res__set" id="rSetName"></div>
+      <h1 class="res__title" id="rTitle">5問、おわり。</h1>
+    </header>
+
+    <div class="tally">
+      <div class="tally__box tally__box--o"><div class="tally__n" id="rO">0</div><div class="tally__k">できた</div></div>
+      <div class="tally__box tally__box--t"><div class="tally__n" id="rT">0</div><div class="tally__k">おしい</div></div>
+      <div class="tally__box tally__box--x"><div class="tally__n" id="rX">0</div><div class="tally__k">もう一度</div></div>
+    </div>
+
+    <div class="list" id="rList"></div>
+
+    <p class="res__word" id="rWord"></p>
+
+    <div class="res__spacer"></div>
+
+    <div class="res__acts">
+      <button type="button" class="btn btn--main" id="rNextSet">次のセットへ</button>
+      <button type="button" class="btn btn--line" id="rRetry" hidden></button>
+      <button type="button" class="btn btn--quiet" id="rHome">ホームへもどる</button>
+    </div>
+
+  </div>
+</main>
+
+<script src="js/app.js"></script>
+</body>
+</html>
