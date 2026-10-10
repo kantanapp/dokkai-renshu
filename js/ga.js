@@ -12,7 +12,7 @@
 (function () {
   'use strict';
 
-  var GA_ID = '';   /* 例: 'G-XXXXXXXXXX' */
+  var GA_ID = 'G-66R7MWB5JF';   /* GA4「gen LP群」の kantanapp ウェブストリーム */
 
   /* 既定は「何もしない」。測定IDが入っていないときはこのまま */
   window.track = function () {};
