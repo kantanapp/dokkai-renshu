@@ -991,3 +991,172 @@ body.kb #viewQuestion .card::after{
   body.kb #viewQuestion .btn--main{ height:44px; border-radius:22px; }
   body.kb #viewQuestion .acts{ gap:4px; }
 }
+
+/* ===========================================================
+   パソコンなど横に広い画面：横を使って、縦に見切れないようにする
+   文字は小さくしない。横に並べて高さを詰める。
+   =========================================================== */
+@media (min-width:980px){
+
+  /* ホーム：左に見出しと「つづきから」、右にレベル一覧 */
+  #viewHome .wrap{
+    max-width:1100px;
+    display:grid;
+    grid-template-columns:minmax(0, 360px) minmax(0, 1fr);
+    grid-template-areas:
+      "head   levels"
+      "go     levels"
+      "reset  levels"
+      "warn   levels";
+    column-gap:48px;
+    row-gap:16px;
+    align-content:start;
+  }
+  #viewHome .home__head{ grid-area:head; }
+  #viewHome .resume,
+  #viewHome .allDone{ grid-area:go; align-self:start; }
+  #viewHome .levels{ grid-area:levels; align-self:start; }
+  #viewHome .reset{ grid-area:reset; align-self:start; }
+  #viewHome .saveWarn{ grid-area:warn; }
+  #viewHome .resume__btn{ width:100%; }
+
+  /* 解説：左に解説カード、右に問い・答え・丸つけ・次へ */
+  #viewCheck .wrap{
+    max-width:1240px;
+    display:grid;
+    grid-template-columns:minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "bar  bar"
+      "kai  q"
+      "kai  mine"
+      "kai  sample"
+      "kai  mark"
+      "kai  act";
+    column-gap:40px;
+    row-gap:14px;
+    align-content:start;
+  }
+  #viewCheck .bar{ grid-area:bar; }
+  #viewCheck .ask__text--check{ grid-area:q; }
+  #viewCheck .mine{ grid-area:mine; }
+  #viewCheck .kaisetsu{ grid-area:kai; align-self:start; }
+  #viewCheck .sample{ grid-area:sample; }
+  #viewCheck .marking{ grid-area:mark; }
+  #viewCheck .acts--end{ grid-area:act; align-self:start; align-items:stretch; }
+  #viewCheck .acts--end .btn--main{ width:100%; }
+
+  /* セット完了：左に結果、右にボタン */
+  #viewResult .wrap{
+    max-width:1100px;
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(0, 360px);
+    grid-template-areas:
+      "head   acts"
+      "tally  acts"
+      "list   acts"
+      "word   acts";
+    column-gap:48px;
+    row-gap:16px;
+    align-content:start;
+  }
+  #viewResult .res__head{ grid-area:head; }
+  #viewResult .tally{ grid-area:tally; }
+  #viewResult .list{ grid-area:list; align-self:start; }
+  #viewResult .res__word{ grid-area:word; }
+  #viewResult .res__spacer{ display:none; }
+  #viewResult .res__acts{ grid-area:acts; align-self:start; }
+  #viewResult .res__acts .btn{ width:100%; }
+}
+
+/* ===========================================================
+   大きな画面（パソコン）：余った縦の余白のぶん、文字を大きくする
+   縦が短いノートパソコンでは見切れないよう、min-height も条件にする
+   =========================================================== */
+@media (min-width:1280px) and (min-height:800px){
+  :root{
+    --pad-y:34px;
+    --gap:20px;
+
+    --passage-size:28px;
+    --passage-lh:58px;
+    --rt-size:14px;
+
+    --ask-size:26px;
+    --ask-lh:42px;
+
+    --input-size:24px;
+    --input-lh:36px;
+    --input-h:132px;
+
+    --btn-h:64px;
+    --btn-size:22px;
+
+    --step-size:20px;
+    --step-lh:34px;
+  }
+
+  #viewHome .wrap{ max-width:1240px; grid-template-columns:minmax(0, 420px) minmax(0, 1fr); }
+  #viewQuestion .wrap{ max-width:1360px; }
+  #viewCheck .wrap{ max-width:1400px; }
+  #viewResult .wrap{ max-width:1240px; grid-template-columns:minmax(0, 1fr) minmax(0, 400px); }
+
+  .home__title,
+  .res__title{ font-size:42px; line-height:54px; }
+  .home__sub{ font-size:17px; line-height:26px; }
+
+  .resume__set{ font-size:32px; line-height:44px; }
+  .resume__theme,
+  .resume__top{ font-size:17px; line-height:24px; }
+  .resume__btn{ height:60px; border-radius:30px; font-size:21px; }
+
+  .levels__head{ font-size:17px; }
+  .lvRow{ min-height:68px; }
+  .lvRow__n{ width:38px; height:38px; border-radius:19px; font-size:19px; }
+  .lvRow__t{ font-size:20px; line-height:28px; }
+  .lvRow__c{ font-size:18px; }
+  .setBtn{ min-height:66px; font-size:18px; }
+
+  .card__label{ font-size:16px; }
+  .chip{ min-height:34px; padding:0 16px; border-radius:17px; font-size:17px; }
+  .ask__kind{ font-size:17px; }
+  .ask__text--check{ font-size:23px; line-height:38px; }
+  .field__label{ font-size:17px; }
+  .linkBtn{ font-size:18px; }
+
+  .mine__label,
+  .sample__label{ font-size:16px; }
+  .mine__text,
+  .sample__text{ font-size:23px; line-height:34px; }
+  .kaisetsu__label{ font-size:18px; }
+  .kaisetsu .passage{ font-size:25px; line-height:52px; }
+  .openNote{ font-size:18px; line-height:30px; }
+  .stepsList__n{ width:30px; height:30px; font-size:16px; }
+
+  .marking__label{ font-size:17px; }
+  .mk{ height:82px; font-size:19px; }
+  .mk svg{ width:32px; height:32px; }
+
+  .tally__n{ font-size:44px; line-height:52px; }
+  .tally__k{ font-size:18px; }
+  .list__row{ min-height:66px; }
+  .list__n{ width:54px; font-size:18px; }
+  .list__k{ font-size:22px; }
+  .res__set{ font-size:18px; }
+  .res__word{ font-size:18px; line-height:30px; }
+  .res__acts .btn--line{ height:62px; border-radius:31px; font-size:20px; }
+  .res__acts .btn--quiet{ height:56px; font-size:18px; }
+  .reset__open{ font-size:17px; }
+
+  .bar__title{ font-size:22px; }
+  .bar__pos{ font-size:19px; }
+}
+
+/* 横に広い画面で、文章が長いとき（レベル6・7など）にはみ出さないための保険。
+   収まっているときは何も起きない。入りきらないときだけ中でスクロールする。 */
+@media (min-width:980px){
+  #viewQuestion .card{ max-height:calc(100vh - 300px); }
+  #viewQuestion .card .passage{ min-height:0; overflow-y:auto; }
+  #viewCheck .kaisetsu{ max-height:calc(100vh - 150px); }
+  #viewCheck .kaisetsu .passage{ min-height:0; overflow-y:auto; }
+  #viewResult .list{ max-height:calc(100vh - 360px); overflow-y:auto; }
+}
