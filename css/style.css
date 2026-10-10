@@ -902,3 +902,92 @@ rt{
 @media (prefers-reduced-motion:reduce){
   *{ transition:none !important; }
 }
+
+/* ===========================================================
+   キーボードが出ている間だけの組み替え（問題画面）
+
+   iOS は「入力欄をキーボードの上に出す」ために画面をスクロールするが、
+   中身が画面ちょうどの高さだとスクロールの余地が無く、入力欄が
+   キーボードの下に取り残される。そこで、キーボードが出ている間は
+   画面の高さ(visualViewport)に合わせて組み替える。
+
+   ・上部バーと、問番号・ラベル・「解説を読む」は隠す
+   ・文章カードが残りの高さいっぱいまで縮み、中だけスクロールできる
+   ・問い・入力欄・「答えた」はキーボードのすぐ上に出る
+   =========================================================== */
+body.kb{
+  position:fixed;
+  top:0; left:0; right:0; bottom:0;
+  overflow:hidden;
+}
+body.kb .view{ min-height:0; }
+
+body.kb #viewQuestion .wrap{
+  height:var(--vvh, 100vh);
+  max-width:760px;
+  min-height:0;
+  overflow:hidden;
+  padding-top:8px;
+  padding-bottom:8px;
+  gap:8px;
+}
+
+body.kb #viewQuestion .bar,
+body.kb #viewQuestion .card__label,
+body.kb #viewQuestion .ask__row,
+body.kb #viewQuestion .field__label,
+body.kb #viewQuestion .linkBtn{ display:none; }
+
+body.kb #viewQuestion .cols{ flex:1 1 auto; min-height:0; }
+body.kb #viewQuestion .cols__a{ flex:1 1 auto; min-height:0; }
+body.kb #viewQuestion .cols__b{ flex:0 0 auto; }
+
+body.kb #viewQuestion .card{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:hidden;
+  padding:10px 14px;
+}
+body.kb #viewQuestion .passage{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+}
+
+body.kb #viewQuestion .field__box{ height:54px; }
+body.kb #viewQuestion .btn--main{ height:46px; border-radius:23px; font-size:16px; }
+body.kb #viewQuestion .acts{ gap:6px; }
+
+/* iPad 横向きの2カラムは、左の文章だけを縮めてスクロールさせる */
+@media (min-width:980px){
+  body.kb #viewQuestion .cols{ align-items:stretch; }
+  body.kb #viewQuestion .wrap{ max-width:1180px; }
+  body.kb #viewQuestion .field__box{ height:80px; }
+}
+
+/* 文章の続きがあることが分かるよう、下端をうすくぼかす */
+body.kb #viewQuestion .card{ position:relative; }
+body.kb #viewQuestion .card::after{
+  content:"";
+  position:absolute;
+  left:2px; right:2px; bottom:2px;
+  height:16px;
+  border-radius:0 0 var(--card-r) var(--card-r);
+  background:linear-gradient(to bottom, rgba(255,255,255,0), #FFFFFF);
+  pointer-events:none;
+}
+
+/* 縦の短い端末（iPhone SE など）は、入力欄とボタンを詰めて文章を1行でも多く見せる */
+@media (max-height:640px){
+  body.kb #viewQuestion .wrap{ gap:6px; padding-top:6px; padding-bottom:6px; }
+  body.kb #viewQuestion .cols{ gap:6px; }
+  body.kb #viewQuestion .cols__a,
+  body.kb #viewQuestion .cols__b{ gap:6px; }
+  body.kb #viewQuestion .card{ padding:8px 12px; }
+  body.kb #viewQuestion .ask__text{ font-size:15px; line-height:24px; }
+  body.kb #viewQuestion .field__box{ height:44px; }
+  body.kb #viewQuestion .btn--main{ height:44px; border-radius:22px; }
+  body.kb #viewQuestion .acts{ gap:4px; }
+}

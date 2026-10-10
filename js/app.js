@@ -711,6 +711,49 @@
       });
   }
 
+  /* ===========================================================
+     キーボードが出ている間の画面の高さ
+
+     iOS はキーボードを出すと「見えている高さ」(visualViewport)だけが
+     縮み、ページの高さは変わらない。中身が画面ちょうどの高さだと
+     スクロールの余地が無く、入力欄がキーボードの下に隠れてしまう。
+     そこで、見えている高さを --vvh に入れ、body に kb を付けて
+     CSS 側で組み替える。visualViewport が無い端末では何もしない。
+     =========================================================== */
+  function setupKeyboard() {
+    var vv = window.visualViewport;
+    if (!vv) return;
+    var pending = 0;
+
+    function apply() {
+      pending = 0;
+      var hidden = window.innerHeight - vv.height;   /* キーボードの高さの目安 */
+      var open = hidden > 120;
+      var was = document.body.classList.contains('kb');
+      document.documentElement.style.setProperty('--vvh', Math.round(vv.height) + 'px');
+      if (was !== open) {
+        document.body.classList.toggle('kb', open);
+        /* 閉じたときに「答えた」が画面の外に出ていたら、見える位置まで戻す */
+        if (!open && !$('viewQuestion').hidden) {
+          window.requestAnimationFrame(function () {
+            $('qDone').scrollIntoView({ block: 'nearest' });
+          });
+        }
+      }
+      /* 開いている間はページ自体を動かさない（組み替えた枠が画面と重なるように） */
+      if (open && (window.pageYOffset || vv.offsetTop)) window.scrollTo(0, 0);
+    }
+
+    function queue() {
+      if (pending) return;
+      pending = window.requestAnimationFrame(apply);
+    }
+
+    vv.addEventListener('resize', queue);
+    vv.addEventListener('scroll', queue);
+    apply();
+  }
+
   /* 電波が無くても開けるようにする。失敗してもアプリは動く */
   function registerSW() {
     if (!('serviceWorker' in navigator)) return;
@@ -721,6 +764,7 @@
   }
 
   $('bootRetry').onclick = fetchData;
+  setupKeyboard();
   registerSW();
   fetchData();
 })();
