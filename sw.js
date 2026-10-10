@@ -7,7 +7,7 @@
    電波が無いときだけ、前に取っておいたものを出す。
    =========================================================== */
 
-var CACHE = 'dokkai-renshu-v2';
+var CACHE = 'dokkai-renshu-v3';
 
 /* 最初に取っておくもの。ここに無いものも、1度開けば自動でたまる */
 var SHELL = [
@@ -15,6 +15,7 @@ var SHELL = [
   './index.html',
   './css/style.css',
   './js/app.js',
+  './js/ga.js',
   './data/questions.json',
   './manifest.webmanifest',
   './icons/icon-180.png',

@@ -20,6 +20,12 @@
 
   function $(id) { return document.getElementById(id); }
 
+  /* GA4 へ送る。js/ga.js に測定IDが入っていないときは何も起きない。
+     書いた答えの中身は絶対に送らない。 */
+  function ev(name, params) {
+    if (window.track) window.track(name, params || {});
+  }
+
   function esc(s) {
     return String(s)
       .replace(/&/g, '&amp;')
@@ -244,12 +250,17 @@
   /* ---------- 画面の出し入れ ---------- */
 
   var VIEWS = ['viewHome', 'viewQuestion', 'viewCheck', 'viewResult'];
+  var VIEW_NAME = {
+    viewHome: 'home', viewQuestion: 'question',
+    viewCheck: 'check', viewResult: 'result'
+  };
 
   function show(name) {
     for (var i = 0; i < VIEWS.length; i++) {
       $(VIEWS[i]).hidden = (VIEWS[i] !== name);
     }
     window.scrollTo(0, 0);
+    ev('screen', { view_name: VIEW_NAME[name] || name });
   }
 
   /* ---------- 印の SVG ---------- */
@@ -401,6 +412,7 @@
       nav.mode = 'normal';
       nav.index = firstUnmarked(findSet(id).set);
     }
+    ev('set_start', { set_id: id, level: findSet(id).level.id, mode: nav.mode });
     renderQuestion();
   }
 
@@ -489,6 +501,7 @@
     var r = setRec(nav.setId);
     r.m[nav.index] = kind;
     save();
+    ev('self_mark', { set_id: nav.setId, q_no: nav.index + 1, mark: kind });
     var btns = document.querySelectorAll('#viewCheck .mk');
     for (var i = 0; i < btns.length; i++) {
       btns[i].setAttribute('aria-checked', btns[i].dataset.mark === kind ? 'true' : 'false');
@@ -545,6 +558,11 @@
       var m = r.m[i];
       if (m && n[m] !== undefined) n[m] += 1;
     });
+    ev('set_complete', {
+      set_id: nav.setId, level: f.level.id, kind: lastFinish,
+      o_count: n.o, t_count: n.t, x_count: n.x
+    });
+
     $('rO').textContent = n.o;
     $('rT').textContent = n.t;
     $('rX').textContent = n.x;
@@ -587,6 +605,7 @@
         var rr = setRec(nav.setId);
         rr.r = { q: bad, i: 0 };
         save();
+        ev('retry_start', { set_id: nav.setId, retry_count: bad.length });
         openSet(nav.setId, 'retry');
       };
     } else {
@@ -635,12 +654,17 @@
     $('qDone').onclick = function () {
       if (!$('answerBox').value.trim()) {
         $('qHint').hidden = false;
+        ev('answer_empty', { set_id: nav.setId, q_no: nav.index + 1 });
         return;
       }
       $('qHint').hidden = true;
+      ev('answered', { set_id: nav.setId, q_no: nav.index + 1 });
       renderCheck();
     };
-    $('qSkip').onclick = function () { renderCheck(); };
+    $('qSkip').onclick = function () {
+      ev('read_kaisetsu', { set_id: nav.setId, q_no: nav.index + 1 });
+      renderCheck();
+    };
 
     $('cBack').onclick = function () { renderQuestion(); };
     $('cNext').onclick = goNext;
