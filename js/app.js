@@ -711,6 +711,16 @@
       });
   }
 
+  /* 電波が無くても開けるようにする。失敗してもアプリは動く */
+  function registerSW() {
+    if (!('serviceWorker' in navigator)) return;
+    if (location.protocol === 'file:') return;
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () { /* 無くても動く */ });
+    });
+  }
+
   $('bootRetry').onclick = fetchData;
+  registerSW();
   fetchData();
 })();
